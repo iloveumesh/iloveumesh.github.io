@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="basic.css">
+	<title>My Portfolio</title>
+</head>
+<body>
+	<div class="main">
+		<img height="150" width="150" id="profileImage">
+		<h2 id="fullname"></h2>
+		<p id="bio"></p>
+		<h4 id="followers"></h4>
+		<p>
+			Check me on <a id="githublink"> Github </a>
+		</p>
+	</div>
+
+	<div class="Projects">
+		<h2>My Projects</h2>
+		<h4 id="repos"></h4>
+	</div>
+
+	<script>
+		fetch("https://api.github.com/users/iloveumesh")
+			.then(response => response.json())
+			.then(function(data){
+				console.log(data)
+
+				let followerscount = data['followers']
+				let followersInfo = 'I have been followed by ${followerscount} people on github'
+
+				document.getElementById('profileImage').src = data['avatar_url']
+				document.getElementById('fullname').textContent = data['name']
+				document.getElementById('bio').textContent = data['bio']
+				document.getElementById('followers').textContent = followerscount
+				document.getElementById('githublink').href = data['html_url']
+			})
+	</script>
+
+	<script type="text/javascript">
+		fetch("https://api.github.com/users/iloveumesh/repos")
+		.then(response => response.json())
+		.then(function(data){
+			console.log(data)
+			
+		})
+	</script>
+</body>
+</html>
